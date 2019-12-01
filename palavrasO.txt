@@ -1,0 +1,72 @@
+object;objeto
+objects;objetos
+observe;observar
+observed;observado
+obtain;obter
+obtained;obtidos
+occasionally;ocasionalmente
+occur;ocorrer
+occurred;ocorreu
+occurs;ocorre
+ocean;oceano
+Ocean;Oceano
+oceans;oceanos
+o'clock;horas
+October;De outubro
+of;de
+off;fora
+offer;oferecer
+offered;oferecidos
+office;escritorio
+officer;oficial
+officers;oficiais
+official;oficial
+often;muitas vezes
+oh;oh
+Oh;Oh
+Ohio;Ohio
+oil;petroleo, oleo
+old;antigo, velho
+old;velho, antigo
+older;mais velho, idoso
+oldest;mais antiga
+on;em
+once;uma vez
+one;um
+ones;os
+only;apenas
+onto;em direcao a, para cima de
+open;aberto
+opened;aberto
+opening;abertura
+operation;operacao
+opinion;parecer
+opportunity;oportunidade
+opposite;oposto
+or;ou
+orange;laranja
+orbit;orbita
+order;fim
+ordered;ordenada
+orders;ordens
+ordinary;ordinaria
+ore;minerio
+organization;organizacao
+organized;organizado
+origin;origem
+original;original
+originally;originalmente
+other;outros
+others;outros
+ought;deveria
+our;nossa
+ourselves;nos
+out;fora
+outer;exterior
+outline;contorno
+outside;fora
+over;superior, mais
+own;proprio
+owned;propriedade
+owner;proprietario
+oxygen;oxigenio
