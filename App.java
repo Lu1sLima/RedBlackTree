@@ -34,6 +34,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,6 +42,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -51,12 +53,15 @@ import javafx.scene.control.TextField;
  */
 public class App extends Application{
     private TextField searchField;
+    private TextField traductionField;
     private Pesquisa p1;
     // public static RedBlackBST<Character, RedBlackBST> arvoreMacro = new RedBlackBST<>();
     // public static RedBlackBST<String, String> arvoreMicro;
     // String alfabeto = "abcdefghijklmnopqrstuvwxyz";
 
-    public App(){}
+    public App(){
+
+    }
 
     @Override
     public void start(Stage primaryStage){
@@ -79,10 +84,15 @@ public class App extends Application{
         searchField.setPrefWidth(500);
         tab.add(searchField, 1, 1);
 
+        Pesquisa.carregaPalavras();
+
         Button pesquisar = new Button("Pesquisar");
         pesquisar.setAlignment(Pos.CENTER);
         pesquisar.setMinWidth(150);
-        pesquisar.setOnAction( p -> trataBotaoPesquisa(searchField));
+        pesquisar.setOnAction( p -> {
+            trataBotaoPesquisa(searchField);
+            searchField.setText("");
+        });
 
 
         Button random = new Button ("Aleatorio");
@@ -111,12 +121,11 @@ public class App extends Application{
 
     public void trataBotaoPesquisa(TextField searchField){
         
-        String text = searchField.getText();
-        String traducao = Pesquisa.pesquisa(text);
-        System.out.println(traducao);
         try{
             try{
-                if(traducao != null){
+                String text = searchField.getText();
+                String traducao = Pesquisa.pesquisa(text);
+                if(!(traducao.equals("null"))){
                     Alert msgBox = new Alert(AlertType.INFORMATION);
                     msgBox.setHeaderText("Palavra ["+text.toUpperCase()+"]");
                     msgBox.setContentText("Traducao: "+traducao.toUpperCase());
@@ -126,7 +135,9 @@ public class App extends Application{
                     confirmationBox.setHeaderText("OPS!");
                     confirmationBox.setContentText("Essa palavra ainda nao tem uma traducao.\n"+
                     "Deseja adicionar uma traducao para ela? Se sim, pressione o botao OK.");
-                    confirmationBox.showAndWait();
+                    confirmationBox.showAndWait()
+                                   .filter(r -> r == ButtonType.OK)
+                                   .ifPresent(r -> trataAdiciona(new Stage(), text));
                 }
             }
             catch(NullPointerException e){
@@ -143,9 +154,67 @@ public class App extends Application{
         }
     }
 
+    public void trataAdiciona(Stage primaryStage, String palavra){
+
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+
+        Text sceneTitle = new Text("Traducao para a palavra: "+palavra);
+        sceneTitle.setFont(Font.font("Tahoma", FontWeight.SEMI_BOLD, 20));
+        
+
+        traductionField = new TextField();
+        traductionField.setPrefHeight(40);
+        traductionField.setPrefWidth(500);
+        grid.add(traductionField, 1, 1);
+
+
+        Button salvar = new Button("Salvar");
+        salvar.setAlignment(Pos.CENTER);
+        salvar.setMinWidth(100);
+        salvar.setOnAction(f -> {
+            Pesquisa.AdicionaPalavra(palavra, traductionField.getText());
+            Alert msgBox = new Alert(AlertType.INFORMATION);
+            msgBox.setHeaderText("SALVO!");
+            msgBox.setContentText("Traducao salva por sucesso!");
+            msgBox.showAndWait();
+            primaryStage.close();
+        }); 
+        
+        
+        Button limpar = new Button("Limpar");
+        limpar.setAlignment(Pos.CENTER);
+        limpar.setMinWidth(100);
+        limpar.setOnAction(
+            f ->{
+                traductionField.setText("");
+            }
+            );
+
+
+            HBox hb = new HBox(10);
+            hb.setAlignment(Pos.CENTER);
+            hb.setPadding(new Insets(25, 25, 25, 25));
+            hb.getChildren().add(salvar);
+            hb.getChildren().add(limpar);
+
+            VBox vb = new VBox(10);
+            vb.setAlignment(Pos.CENTER);
+            vb.setPadding(new Insets(25, 25, 25, 25));
+            vb.getChildren().add(sceneTitle);
+            vb.getChildren().add(grid);
+            vb.getChildren().add(hb);
+
+            Scene scene = new Scene(vb, 600, 400);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        }
+        
     public static void main(String[] args) {
-        // App p1 = new App();
-        // System.out.println(p1.pesquisa("car"));
         launch(args);
 
     }

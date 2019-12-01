@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.Scanner;
 
+import javafx.scene.control.TextField;
+
 /**
  * Pesquisa
  */
@@ -18,7 +20,6 @@ public class Pesquisa {
 
 
     public Pesquisa(){
-        
     }
 
     public static void carregaPalavras(){
@@ -28,6 +29,7 @@ public class Pesquisa {
                 String linha = br.readLine();
                 arvoreMicro = new RedBlackBST<>();
                 while (linha !=null) {
+                    linha = linha.toLowerCase();
                     String [] parts = linha.split(";");
                     arvoreMicro.put(parts[0], parts[1]);
                     
@@ -40,9 +42,16 @@ public class Pesquisa {
         }
         
     }
+
     public static String pesquisa(String palavra){
-        carregaPalavras();
-        Character prefix = palavra.charAt(0);
+        Character prefix = Character.toLowerCase(palavra.charAt(0));
+        System.out.println(arvoreMacro.get(prefix).get(palavra));
         return ""+arvoreMacro.get(prefix).get(palavra);
+    }
+
+    public static void AdicionaPalavra(String palavra, String traducao){
+        Character prefix = palavra.charAt(0);
+        arvoreMacro.get(prefix).put(palavra, traducao);
+        System.out.println(arvoreMacro.get(prefix).positionsCentral());
     }
 }
