@@ -84,7 +84,7 @@ public class App extends Application{
         searchField.setPrefWidth(500);
         tab.add(searchField, 1, 1);
 
-        Pesquisa.carregaPalavras();
+        Pesquisa.carregar();
 
         Button pesquisar = new Button("Pesquisar");
         pesquisar.setAlignment(Pos.CENTER);

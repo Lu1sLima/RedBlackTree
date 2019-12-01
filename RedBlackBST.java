@@ -85,7 +85,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     private Node root;     // root of the BST
 
     // BST helper node data type
-    private class Node {
+    private class Node implements Serializable{
         private Key key;           // key
         private Value val;         // associated data
         private Node left, right;  // links to left and right subtrees
