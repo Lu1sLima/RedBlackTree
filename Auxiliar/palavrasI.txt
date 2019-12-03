@@ -1,0 +1,74 @@
+ice;gelo
+I'd;Eu tinha
+idea;ideia
+ideas;ideias
+identify;identificar
+if;se
+ill;doente
+I'll;Eu vou
+Illinois;Illinois
+I'm;Eu sou, estou
+image;imagem
+imagine;imaginar
+immediately;imediatamente
+importance;importancia
+important;importante
+impossible;impossivel
+improve;melhorar
+in;em
+inch;polegadas
+inches;polegadas
+include;incluir
+included;incluidos
+includes;inclui
+including;incluindo
+income;renda
+increase;aumento
+increase;aumento
+increasing;aumento
+indeed;de fato
+independence;independencia
+India;india
+indian;indiana
+indians;indios
+indicate;indicar
+indicated;indicado
+indicates;indica
+individual;individual, particular
+industrial;industrial
+industries;industrias
+industry;industria
+influence;influencia
+information;informacoes
+insect;inseto
+insects;insetos
+inside;dentro
+instance;instancia
+instant;instantanea
+instead;vez
+instrument;instrumento
+instruments;instrumentos
+interest;interesse, juros
+interested;interessados
+interesting;interessante
+interior;interior
+into;em
+introduced;introduzidas
+invented;inventado
+invention;invencao
+invited;convidados
+involved;envolvidos
+iron;ferro
+is;e
+island;ilha
+Island;Ilha
+islands;ilhas
+isn't;nao e
+it;ele
+Italian;Italiano
+Italy;Italia
+items;itens
+it's;e
+its;sua
+itself;ele mesmo
+I've;Eu tenho

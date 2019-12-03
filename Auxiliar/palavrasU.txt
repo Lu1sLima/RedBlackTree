@@ -1,0 +1,30 @@
+uncle;tio
+under;debaixo
+underline;sublinhado
+understand;compreender
+understanding;compreensao
+understood;entendido
+unhappy;infeliz
+Union;Uniao
+unit;unidade
+United States;Estados Unidos
+units;unidades
+universe;Universo
+University;Universidade
+unknown;desconhecido
+unless;menos que, exceto que
+unlike;ao contrario
+until;ate
+unusual;incomuns
+up;para cima
+upon;em cima
+upper;superior
+upward;para cima
+us;nos
+use;uso
+use;uso, utilizacao
+used;usados
+useful;util
+using;usando
+usual;usual
+usually;normalmente

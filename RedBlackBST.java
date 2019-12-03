@@ -167,6 +167,151 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     }
 
     /**
+     * Retorna a o valor da chave do pai da chave que passar.
+     * @param key the key
+     * @return valor da chave do pai da key passada por parametro, se for root, retorna null
+     */
+
+    public Key getParent(Key key){
+        return getParent(root, key);
+    }
+
+    private Key getParent(Node x, Key key){
+        Node pai = x;
+        if(key != root.key){
+            while (x != null) {
+                int cmp = key.compareTo(x.key);
+                if      (cmp < 0){
+                    pai = x;
+                    x = x.left;
+                }
+                else if (cmp > 0) {
+                    pai = x;
+                    x = x.right;
+                }
+                else              return pai.key;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Retorna uma cópia da árvore.
+     * @return retorna uma árvore idêntica a atual.
+     */
+    public RedBlackBST<Key, Value> clone(){
+        RedBlackBST<Key, Value> clone = new RedBlackBST<>();
+        clone(root, clone);
+        return clone;    
+    }
+
+    private void clone(Node n, RedBlackBST<Key, Value> clone){
+        List<Node> aux = positionsCentralClone();
+        aux.forEach(a -> {
+            clone.put(a.key, a.val);
+        });
+    }
+
+
+    /**
+     * Retorna uma lista com todos os elementos da arvore. Os elementos
+     * sao colocados na lista seguindo um caminhamento prefixado.
+     * @return lista com os elementos da arvore na ordem prefixada
+     */
+    public List<Key> positionsPre() {
+        List<Key> res = new ArrayList<>();
+        positionsPreAux(root, res);
+        return res;
+    }
+    private void positionsPreAux(Node n, List<Key> res) {
+        if (n != null) {
+            res.add(n.key); //Visita o nodo
+            positionsPreAux(n.left, res); //Visita a subarvore esquerda
+            positionsPreAux(n.right, res); //Visita a subarvore direita
+        }
+    }
+    
+    /** 
+     * Retorna uma lista com todos os elementos da arvore na ordem de 
+     * caminhamento pos-fixada. Deve chamar um metodo auxiliar recursivo.
+     * @return List<Key> lista com os elementos da arvore
+     */
+    public List<Key> positionsPos() {
+        List<Key> lista = new ArrayList<>();
+        positionsPosAux(root, lista);
+        return lista;
+    }
+
+    private void positionsPosAux(Node n, List<Key> l){
+        if(n != null){
+            // percorrer subarvore da esquerda
+            positionsPosAux(n.left, l);
+            // percorrer subarvore da direita
+            positionsPosAux(n.right, l);
+            // visita raiz;
+            l.add(n.key);
+        }
+    }
+
+
+    /**
+     * Retorna uma lista com todos os elementos da arvore em Ordem(crescente). Os elementos
+     * sao colocados na lista seguindo um caminhamento central.
+     * @return lista com os elementos da arvore na ordem central(ordenada)
+     */
+    public List<Key> positionsCentral() {
+        List<Key> res = new ArrayList<>();
+        positionsCentralAux(root, res);
+        return res;
+    }
+
+    private void positionsCentralAux(Node n, List<Key> res) {
+        if (n != null) {
+            positionsCentralAux(n.left, res); //Visita a subarvore esquerda
+            res.add(n.key); //Visita o nodo
+            positionsCentralAux(n.right, res); //Visita a subarvore direita
+        }
+    }
+
+    /**
+     * Retorna uma lista com os NODOS da arvore em Ordem(crescente). Os elementos
+     * sao colocados na lista seguindo um caminhamento central.
+     * @return lista com os elementos da arvore na ordem central(ordenada)
+     */
+    private List<Node> positionsCentralClone() {
+        List<Node> res = new ArrayList<>();
+        positionsCentralAuxClone(root, res);
+        return res;
+    }
+    private void positionsCentralAuxClone(Node n, List<Node> res) {
+        if (n != null) {
+            positionsCentralAuxClone(n.left, res); //Visita a subarvore esquerda
+            res.add(n); //Visita o nodo
+            positionsCentralAuxClone(n.right, res); //Visita a subarvore direita
+        }
+    }
+
+    /** 
+     * Retorna uma lista com todos os elementos da arvore na ordem de 
+     * caminhamento em largura. 
+     * @return List<Key> com os elementos da arvore
+     */  
+    public List<Key> positionsWidth() {
+        List<Key> res = new ArrayList<>();
+        Queue<Node> fila = new Queue<>();
+        fila.enqueue(root);
+        while(!fila.isEmpty()) {
+            Node n = fila.dequeue();
+            res.add(n.key);
+            if (n.left!=null)
+                fila.enqueue(n.left);
+            if (n.right!=null)
+                fila.enqueue(n.right);
+        }
+        return res;
+    }
+
+    /**
      * Does this symbol table contain the given key?
      * @param key the key
      * @return {@code true} if this symbol table contains {@code key} and
@@ -192,6 +337,8 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
+        if(root != null){
+        }
         if (key == null) throw new IllegalArgumentException("first argument to put() is null");
         if (val == null) {
             delete(key);
@@ -713,18 +860,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     } 
 
 
-    public List<Key> positionsCentral() {
-        List<Key> res = new ArrayList<>();
-        positionsCentralAux(root, res);
-        return res;
-    }
-    private void positionsCentralAux(Node n, List<Key> res) {
-        if (n != null) {
-            positionsCentralAux(n.left, res); //Visita a subarvore esquerda
-            res.add(n.key); //Visita o nodo
-            positionsCentralAux(n.right, res); //Visita a subarvore direita
-        }
-    }
+
 
 }
 

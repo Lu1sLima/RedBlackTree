@@ -98,6 +98,7 @@ public class App extends Application{
         Button random = new Button ("Aleatorio");
         random.setAlignment(Pos.CENTER);
         random.setMinWidth(150);
+        random.setOnAction(e -> aleatorio());
 
         HBox hb = new HBox(10);
         hb.setAlignment(Pos.CENTER);
@@ -166,7 +167,7 @@ public class App extends Application{
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.SEMI_BOLD, 20));
         
 
-        traductionField = new TextField();
+        traductionField = new TextField(null);
         traductionField.setPrefHeight(40);
         traductionField.setPrefWidth(500);
         grid.add(traductionField, 1, 1);
@@ -177,11 +178,20 @@ public class App extends Application{
         salvar.setMinWidth(100);
         salvar.setOnAction(f -> {
             Pesquisa.AdicionaPalavra(palavra, traductionField.getText());
-            Alert msgBox = new Alert(AlertType.INFORMATION);
-            msgBox.setHeaderText("SALVO!");
-            msgBox.setContentText("Traducao salva por sucesso!");
-            msgBox.showAndWait();
-            primaryStage.close();
+            if(traductionField.getText() != null){
+                Alert msgBox = new Alert(AlertType.INFORMATION);
+                Pesquisa.salvar();
+                msgBox.setHeaderText("SALVO!");
+                msgBox.setContentText("Traducao salva por sucesso!");
+                msgBox.showAndWait();
+                primaryStage.close();
+            }
+            else{
+                Alert msgBox = new Alert(AlertType.INFORMATION);
+                msgBox.setHeaderText("VAZIO!");
+                msgBox.setContentText("Por favor, insira uma traducao antes de salvar.");
+                msgBox.showAndWait();
+            }
         }); 
         
         
@@ -213,9 +223,16 @@ public class App extends Application{
             primaryStage.show();
 
         }
+
+        public void aleatorio(){
+            String[]words = Pesquisa.pesquisaAleatoria();
+            Alert msgBox = new Alert(AlertType.INFORMATION);
+            msgBox.setHeaderText("Palavra ["+words[0].toUpperCase()+"]");
+            msgBox.setContentText("Traducao: "+words[1].toUpperCase());
+            msgBox.showAndWait();
+        }
         
     public static void main(String[] args) {
         launch(args);
-
     }
 }
