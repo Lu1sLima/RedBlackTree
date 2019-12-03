@@ -86,7 +86,7 @@ public class App extends Application{
         searchField.setPrefWidth(500);
         tab.add(searchField, 1, 1);
 
-        Pesquisa.carregaPalavras();
+        Pesquisa.carregar();
 
         Button pesquisar = new Button("Pesquisar");
         pesquisar.setAlignment(Pos.CENTER);
@@ -236,9 +236,9 @@ public class App extends Application{
         
     public static void main(String[] args) {
         launch(args);
-        System.out.println("[PRE]: "+Pesquisa.arvoreMacro.get('a').positionsPre());
-        System.out.println("[CENTRAL]: "+Pesquisa.arvoreMacro.get('a').positionsCentral());
-        System.out.println("[LARGURA]: "+Pesquisa.arvoreMacro.get('a').positionsWidth());
-        System.out.println(Pesquisa.arvoreMacro.get('a').positionsPreNode());
+        // System.out.println("[PRE]: "+Pesquisa.arvoreMacro.get('a').positionsPre());
+        // System.out.println("[CENTRAL]: "+Pesquisa.arvoreMacro.get('a').positionsCentral());
+        // System.out.println("[LARGURA]: "+Pesquisa.arvoreMacro.get('a').positionsWidth());
+        // System.out.println(Pesquisa.arvoreMacro.get('a').positionsPreNode());
     }
 }

@@ -345,10 +345,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     public boolean contains(Key key) {
         return get(key) != null;
     }
-    
-    /***************************************************************************
-     *  Métodos utilitários.
-     ***************************************************************************/
  
      /**
       * Retorna a altura da árvore.
