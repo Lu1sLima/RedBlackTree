@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.Scanner;
 
+import javax.xml.soap.Node;
+
 import javafx.event.ActionEvent; 
 import javafx.event.EventHandler; 
 import java.io.FileInputStream;
@@ -74,7 +76,7 @@ public class App extends Application{
         // tab.setGridLinesVisible(true);
 
         
-        Text sceneTitle = new Text("Dicionario");
+        Text sceneTitle = new Text("Dicionario Vermelho");
         sceneTitle.setTextAlignment(TextAlignment.CENTER);
         sceneTitle.setId("dicionario-text");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.SEMI_BOLD, 20));
@@ -84,7 +86,7 @@ public class App extends Application{
         searchField.setPrefWidth(500);
         tab.add(searchField, 1, 1);
 
-        Pesquisa.carregar();
+        Pesquisa.carregaPalavras();
 
         Button pesquisar = new Button("Pesquisar");
         pesquisar.setAlignment(Pos.CENTER);
@@ -124,7 +126,7 @@ public class App extends Application{
         
         try{
             try{
-                String text = searchField.getText();
+                String text = searchField.getText().toLowerCase();
                 String traducao = Pesquisa.pesquisa(text);
                 if(!(traducao.equals("null"))){
                     Alert msgBox = new Alert(AlertType.INFORMATION);
@@ -234,5 +236,9 @@ public class App extends Application{
         
     public static void main(String[] args) {
         launch(args);
+        System.out.println("[PRE]: "+Pesquisa.arvoreMacro.get('a').positionsPre());
+        System.out.println("[CENTRAL]: "+Pesquisa.arvoreMacro.get('a').positionsCentral());
+        System.out.println("[LARGURA]: "+Pesquisa.arvoreMacro.get('a').positionsWidth());
+        System.out.println(Pesquisa.arvoreMacro.get('a').positionsPreNode());
     }
 }

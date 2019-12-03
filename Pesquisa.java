@@ -77,7 +77,7 @@ public class Pesquisa {
     public static void AdicionaPalavra(String palavra, String traducao){
         Character prefix = palavra.charAt(0);
         arvoreMacro.get(prefix).put(palavra, traducao);
-        System.out.println(arvoreMacro.get(prefix).positionsCentral());
+        //System.out.println(arvoreMacro.get(prefix).positionsCentral());
         salvar();
     }
 

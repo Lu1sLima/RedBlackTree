@@ -1,32 +1,3 @@
-/******************************************************************************
- *  Compilation:  javac RedBlackBST.java
- *  Execution:    java RedBlackBST < input.txt
- *  Dependencies: StdIn.java StdOut.java  
- *  Data files:   https://algs4.cs.princeton.edu/33balanced/tinyST.txt  
- *    
- *  A symbol table implemented using a left-leaning red-black BST.
- *  This is the 2-3 version.
- *
- *  Note: commented out assertions because DrJava now enables assertions
- *        by default.
- *
- *  % more tinyST.txt
- *  S E A R C H E X A M P L E
- *  
- *  % java RedBlackBST < tinyST.txt
- *  A 8
- *  C 4
- *  E 12
- *  H 5
- *  L 11
- *  M 9
- *  P 10
- *  R 3
- *  S 0
- *  X 7
- *
- ******************************************************************************/
-
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -81,6 +52,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
 
     private static final boolean RED   = true;
     private static final boolean BLACK = false;
+    List<Boolean> cores = new ArrayList<>();
 
     private Node root;     // root of the BST
 
@@ -98,6 +70,13 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
             this.color = color;
             this.size = size;
         }
+
+        public String getColor(){
+            if(color){
+                return "red";
+            }
+            return "black";
+        }
     }
 
     /**
@@ -106,65 +85,16 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     public RedBlackBST() {
     }
 
-   /***************************************************************************
-    *  Node helper methods.
-    ***************************************************************************/
-    // is node x red; false if x is null ?
-    private boolean isRed(Node x) {
-        if (x == null) return false;
-        return x.color == RED;
-    }
+    
 
-    // number of node in subtree rooted at x; 0 if x is null
-    private int size(Node x) {
-        if (x == null) return 0;
-        return x.size;
-    } 
 
 
     /**
-     * Returns the number of key-value pairs in this symbol table.
-     * @return the number of key-value pairs in this symbol table
+     * 
+     * Métodos solicitados:
+     * Alguns já estavam implementados na árvore!
      */
-    public int size() {
-        return size(root);
-    }
 
-   /**
-     * Is this symbol table empty?
-     * @return {@code true} if this symbol table is empty and {@code false} otherwise
-     */
-    public boolean isEmpty() {
-        return root == null;
-    }
-
-
-   /***************************************************************************
-    *  Standard BST search.
-    ***************************************************************************/
-
-    /**
-     * Returns the value associated with the given key.
-     * @param key the key
-     * @return the value associated with the given key if the key is in the symbol table
-     *     and {@code null} if the key is not in the symbol table
-     * @throws IllegalArgumentException if {@code key} is {@code null}
-     */
-    public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
-        return get(root, key);
-    }
-
-    // value associated with the given key in subtree rooted at x; null if no such key
-    private Value get(Node x, Key key) {
-        while (x != null) {
-            int cmp = key.compareTo(x.key);
-            if      (cmp < 0) x = x.left;
-            else if (cmp > 0) x = x.right;
-            else              return x.val;
-        }
-        return null;
-    }
 
     /**
      * Retorna a o valor da chave do pai da chave que passar.
@@ -194,6 +124,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         }
         return null;
     }
+
     
     /**
      * Retorna uma cópia da árvore.
@@ -230,11 +161,32 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
             positionsPreAux(n.right, res); //Visita a subarvore direita
         }
     }
+
+    /**
+     * Método auxiliar utilizado para testes
+     * É um caminhamento préfixado, só que retorna a cor dos nodos.
+     * Esse método foi utilizado para obter imagens da árvore.
+     * @author Luís Lima, Adilson Medronha
+     */
+
+    public List<String> positionsPreNode() {
+        List<String> res = new ArrayList<>();
+        positionsPreNodeAux(root, res);
+        return res;
+    }
+    private void positionsPreNodeAux(Node n, List<String> res) {
+        if (n != null) {
+            res.add(n.getColor()); //Visita o nodo
+            positionsPreNodeAux(n.left, res); //Visita a subarvore esquerda
+            positionsPreNodeAux(n.right, res); //Visita a subarvore direita
+        }
+    }
+
     
     /** 
      * Retorna uma lista com todos os elementos da arvore na ordem de 
      * caminhamento pos-fixada. Deve chamar um metodo auxiliar recursivo.
-     * @return List<Key> lista com os elementos da arvore
+     * @return List<Key> lista com as chaves da arvore
      */
     public List<Key> positionsPos() {
         List<Key> lista = new ArrayList<>();
@@ -257,7 +209,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     /**
      * Retorna uma lista com todos os elementos da arvore em Ordem(crescente). Os elementos
      * sao colocados na lista seguindo um caminhamento central.
-     * @return lista com os elementos da arvore na ordem central(ordenada)
+     * @return lista com as chaves da arvore na ordem central(ordenada)
      */
     public List<Key> positionsCentral() {
         List<Key> res = new ArrayList<>();
@@ -274,10 +226,12 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     }
 
     /**
+     * Método utilizado como auxiliar para a criação do método Clone!
      * Retorna uma lista com os NODOS da arvore em Ordem(crescente). Os elementos
      * sao colocados na lista seguindo um caminhamento central.
      * @return lista com os elementos da arvore na ordem central(ordenada)
      */
+
     private List<Node> positionsCentralClone() {
         List<Node> res = new ArrayList<>();
         positionsCentralAuxClone(root, res);
@@ -294,8 +248,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     /** 
      * Retorna uma lista com todos os elementos da arvore na ordem de 
      * caminhamento em largura. 
-     * @return List<Key> com os elementos da arvore
+     * @return List<Key> com as chaves da arvore
      */  
+
     public List<Key> positionsWidth() {
         List<Key> res = new ArrayList<>();
         Queue<Node> fila = new Queue<>();
@@ -311,63 +266,147 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         return res;
     }
 
+    
+    
+    
     /**
-     * Does this symbol table contain the given key?
-     * @param key the key
-     * @return {@code true} if this symbol table contains {@code key} and
-     *     {@code false} otherwise
-     * @throws IllegalArgumentException if {@code key} is {@code null}
+     * Retorna o tamanho da árvore apartir de root.
+     * @return tamanho da árvore.
+     */
+    public int size() {
+        return size(root);
+    }
+    // number of node in subtree rooted at x; 0 if x is null
+    private int size(Node x) {
+        if (x == null) return 0;
+        return x.size;
+    } 
+    
+    /**
+     * Verifica  se a árvore está vazia
+     * @return {@code true} se a árvore está vazia e {@code false} se tiver algum elemento.
+     */
+    public boolean isEmpty() {
+        return root == null;
+    }
+    
+    /***************************************************************************
+     *  Red-black tree insertion.
+     ***************************************************************************/
+ 
+     /**
+      * Insere na árvore um nodo de chave-valor.
+      * Reescreve o valor se o campo ja estiver preenchido.
+      * Deleta uma key se o valor for null
+      *
+      * @param key a chave
+      * @param val o valor
+      * @throws IllegalArgumentException se {@code key} é {@code null}
+      */
+
+     public void put(Key key, Value val) {
+         if(root != null){
+         }
+         if (key == null) throw new IllegalArgumentException("first argument to put() is null");
+         if (val == null) {
+             delete(key);
+             return;
+         }
+ 
+         root = put(root, key, val);
+         root.color = BLACK;
+         // assert check();
+     }
+ 
+     // insert the key-value pair in the subtree rooted at h
+     private Node put(Node h, Key key, Value val) { 
+         if (h == null) return new Node(key, val, RED, 1);
+ 
+         int cmp = key.compareTo(h.key);
+         if      (cmp < 0) h.left  = put(h.left,  key, val); 
+         else if (cmp > 0) h.right = put(h.right, key, val); 
+         else              h.val   = val;
+ 
+         // fix-up any right-leaning links
+         if (isRed(h.right) && !isRed(h.left))      h = rotateLeft(h);
+         if (isRed(h.left)  &&  isRed(h.left.left)) h = rotateRight(h);
+         if (isRed(h.left)  &&  isRed(h.right))     flipColors(h);
+         h.size = size(h.left) + size(h.right) + 1;
+ 
+         return h;
+     }
+    /**
+     * Verifica se a árvore possui a determinada key.
+     * @param key a chave
+     * @return {@code true} se a árvore possui a chave {@code key} e
+     *     {@code false} se não.
+     * @throws IllegalArgumentException se {@code key} é {@code null}
      */
     public boolean contains(Key key) {
         return get(key) != null;
     }
+    
+    /***************************************************************************
+     *  Métodos utilitários.
+     ***************************************************************************/
+ 
+     /**
+      * Retorna a altura da árvore.
+      * @return altura da árvore apartir de root
+      */
+     public int height() {
+         return height(root);
+     }
+     private int height(Node x) {
+         if (x == null) return -1;
+         return 1 + Math.max(height(x.left), height(x.right));
+     }
+
+
+     /**
+      * 
+      * Métodos Auxiliares da arvore (Para que ela funcione)
+      * Criados pelos autores
+      */
+
+    /***************************************************************************
+     *  Node helper methods.
+     ***************************************************************************/
+    // is node x red; false if x is null ?
+    private boolean isRed(Node x) {
+        if (x == null) return false;
+        return x.color == RED;
+     }
 
    /***************************************************************************
-    *  Red-black tree insertion.
+    *  Standard BST search.
     ***************************************************************************/
 
     /**
-     * Inserts the specified key-value pair into the symbol table, overwriting the old 
-     * value with the new value if the symbol table already contains the specified key.
-     * Deletes the specified key (and its associated value) from this symbol table
-     * if the specified value is {@code null}.
-     *
+     * Returns the value associated with the given key.
      * @param key the key
-     * @param val the value
+     * @return the value associated with the given key if the key is in the symbol table
+     *     and {@code null} if the key is not in the symbol table
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
-    public void put(Key key, Value val) {
-        if(root != null){
-        }
-        if (key == null) throw new IllegalArgumentException("first argument to put() is null");
-        if (val == null) {
-            delete(key);
-            return;
-        }
-
-        root = put(root, key, val);
-        root.color = BLACK;
-        // assert check();
+    public Value get(Key key) {
+        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        return get(root, key);
     }
 
-    // insert the key-value pair in the subtree rooted at h
-    private Node put(Node h, Key key, Value val) { 
-        if (h == null) return new Node(key, val, RED, 1);
-
-        int cmp = key.compareTo(h.key);
-        if      (cmp < 0) h.left  = put(h.left,  key, val); 
-        else if (cmp > 0) h.right = put(h.right, key, val); 
-        else              h.val   = val;
-
-        // fix-up any right-leaning links
-        if (isRed(h.right) && !isRed(h.left))      h = rotateLeft(h);
-        if (isRed(h.left)  &&  isRed(h.left.left)) h = rotateRight(h);
-        if (isRed(h.left)  &&  isRed(h.right))     flipColors(h);
-        h.size = size(h.left) + size(h.right) + 1;
-
-        return h;
+    // value associated with the given key in subtree rooted at x; null if no such key
+    private Value get(Node x, Key key) {
+        while (x != null) {
+            int cmp = key.compareTo(x.key);
+            if      (cmp < 0) x = x.left;
+            else if (cmp > 0) x = x.right;
+            else              return x.val;
+        }
+        return null;
     }
-
+    
+    
+    
    /***************************************************************************
     *  Red-black tree deletion.
     ***************************************************************************/
@@ -481,8 +520,8 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         }
         return balance(h);
     }
-
-   /***************************************************************************
+    
+    /***************************************************************************
     *  Red-black tree helper functions.
     ***************************************************************************/
 
@@ -564,21 +603,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     }
 
 
-   /***************************************************************************
-    *  Utility functions.
-    ***************************************************************************/
-
-    /**
-     * Returns the height of the BST (for debugging).
-     * @return the height of the BST (a 1-node tree has height 0)
-     */
-    public int height() {
-        return height(root);
-    }
-    private int height(Node x) {
-        if (x == null) return -1;
-        return 1 + Math.max(height(x.left), height(x.right));
-    }
 
    /***************************************************************************
     *  Ordered symbol table methods.
