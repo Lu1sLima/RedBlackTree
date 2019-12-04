@@ -100,6 +100,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna a o valor da chave do pai da chave que passar.
      * @param key the key
      * @return valor da chave do pai da key passada por parametro, se for root, retorna null
+     * Notação: O(n)
      */
 
     public Key getParent(Key key){
@@ -129,6 +130,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     /**
      * Retorna uma cópia da árvore.
      * @return retorna uma árvore idêntica a atual.
+     * Notação O(n);
      */
     public RedBlackBST<Key, Value> clone(){
         RedBlackBST<Key, Value> clone = new RedBlackBST<>();
@@ -148,6 +150,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com todos os elementos da arvore. Os elementos
      * sao colocados na lista seguindo um caminhamento prefixado.
      * @return lista com os elementos da arvore na ordem prefixada
+     * Notação O(c) constante
      */
     public List<Key> positionsPre() {
         List<Key> res = new ArrayList<>();
@@ -167,9 +170,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * É um caminhamento préfixado, só que retorna a cor dos nodos.
      * Esse método foi utilizado para obter imagens da árvore.
      * @author Luís Lima, Adilson Medronha
+     * Notação O(c) constante
      */
 
-    public List<String> positionsPreNode() {
+    private List<String> positionsPreNode() {
         List<String> res = new ArrayList<>();
         positionsPreNodeAux(root, res);
         return res;
@@ -187,6 +191,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com todos os elementos da arvore na ordem de 
      * caminhamento pos-fixada. Deve chamar um metodo auxiliar recursivo.
      * @return List<Key> lista com as chaves da arvore
+     * Notação O(c) constante
      */
     public List<Key> positionsPos() {
         List<Key> lista = new ArrayList<>();
@@ -210,6 +215,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com todos os elementos da arvore em Ordem(crescente). Os elementos
      * sao colocados na lista seguindo um caminhamento central.
      * @return lista com as chaves da arvore na ordem central(ordenada)
+     * Notação O(c) constante
      */
     public List<Key> positionsCentral() {
         List<Key> res = new ArrayList<>();
@@ -230,6 +236,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com os NODOS da arvore em Ordem(crescente). Os elementos
      * sao colocados na lista seguindo um caminhamento central.
      * @return lista com os elementos da arvore na ordem central(ordenada)
+     * Notação O(c) constante
      */
 
     private List<Node> positionsCentralClone() {
@@ -249,6 +256,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com todos os elementos da arvore na ordem de 
      * caminhamento em largura. 
      * @return List<Key> com as chaves da arvore
+     * Notação O(n) VER ESSE
      */  
 
     public List<Key> positionsWidth() {
@@ -272,6 +280,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     /**
      * Retorna o tamanho da árvore apartir de root.
      * @return tamanho da árvore.
+     * Notação O(c) constante
      */
     public int size() {
         return size(root);
@@ -285,6 +294,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     /**
      * Verifica  se a árvore está vazia
      * @return {@code true} se a árvore está vazia e {@code false} se tiver algum elemento.
+     * Notação O(c) constante
      */
     public boolean isEmpty() {
         return root == null;
@@ -298,7 +308,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
       * Insere na árvore um nodo de chave-valor.
       * Reescreve o valor se o campo ja estiver preenchido.
       * Deleta uma key se o valor for null
-      *
+      * Notação O(c) constante
       * @param key a chave
       * @param val o valor
       * @throws IllegalArgumentException se {@code key} é {@code null}
@@ -315,10 +325,8 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
  
          root = put(root, key, val);
          root.color = BLACK;
-         // assert check();
      }
  
-     // insert the key-value pair in the subtree rooted at h
      private Node put(Node h, Key key, Value val) { 
          if (h == null) return new Node(key, val, RED, 1);
  
@@ -327,7 +335,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
          else if (cmp > 0) h.right = put(h.right, key, val); 
          else              h.val   = val;
  
-         // fix-up any right-leaning links
+         // mantendo a árvore com a característica de balanceamento à esquerda.
          if (isRed(h.right) && !isRed(h.left))      h = rotateLeft(h);
          if (isRed(h.left)  &&  isRed(h.left.left)) h = rotateRight(h);
          if (isRed(h.left)  &&  isRed(h.right))     flipColors(h);
@@ -349,6 +357,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      /**
       * Retorna a altura da árvore.
       * @return altura da árvore apartir de root
+      * Notação O(c) constante
       */
      public int height() {
          return height(root);
@@ -368,21 +377,25 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     /***************************************************************************
      *  Node helper methods.
      ***************************************************************************/
-    // is node x red; false if x is null ?
+
+    /** Verifica se o nodo é vermelho
+     * Notação O(c) constante
+     */
     private boolean isRed(Node x) {
         if (x == null) return false;
         return x.color == RED;
      }
 
    /***************************************************************************
-    *  Standard BST search.
+    * Método de procura padrão de árvores binárias de pesquisa.
     ***************************************************************************/
 
     /**
-     * Returns the value associated with the given key.
-     * @param key the key
-     * @return the value associated with the given key if the key is in the symbol table
-     *     and {@code null} if the key is not in the symbol table
+     * Retorna o valor associado com a key passada por parâmetro.
+     * Notação O(log n)
+     * @param key a chave
+     * @return o valor associado àquela key.
+     *     and {@code null} se a chave não está na árvore.
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
@@ -390,7 +403,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         return get(root, key);
     }
 
-    // value associated with the given key in subtree rooted at x; null if no such key
     private Value get(Node x, Key key) {
         while (x != null) {
             int cmp = key.compareTo(x.key);
@@ -404,26 +416,23 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     
     
    /***************************************************************************
-    *  Red-black tree deletion.
+    *  Remove da RedBlackTree
     ***************************************************************************/
 
     /**
-     * Removes the smallest key and associated value from the symbol table.
-     * @throws NoSuchElementException if the symbol table is empty
+     * Remove a chave (e o valor) de menor expressão da árvore.
+     * @throws NoSuchElementException se a redblack está vazia.
      */
     public void deleteMin() {
         if (isEmpty()) throw new NoSuchElementException("BST underflow");
 
-        // if both children of root are black, set root to red
         if (!isRed(root.left) && !isRed(root.right))
             root.color = RED;
 
         root = deleteMin(root);
         if (!isEmpty()) root.color = BLACK;
-        // assert check();
     }
 
-    // delete the key-value pair with the minimum key rooted at h
     private Node deleteMin(Node h) { 
         if (h.left == null)
             return null;
@@ -437,7 +446,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
 
 
     /**
-     * Removes the largest key and associated value from the symbol table.
+     * Remove a chave de valor mais expressivo na árvore.
      * @throws NoSuchElementException if the symbol table is empty
      */
     public void deleteMax() {
@@ -469,10 +478,11 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     }
 
     /**
-     * Removes the specified key and its associated value from this symbol table     
-     * (if the key is in this symbol table).    
+     * Remove a chave e o valor especificado.     
+     * se a chave não for null e estiver na árvore.    
      *
      * @param  key the key
+     * Notação O(log n)
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) { 
@@ -485,7 +495,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
 
         root = delete(root, key);
         if (!isEmpty()) root.color = BLACK;
-        // assert check();
     }
 
     // delete the key-value pair with the given key rooted at h
