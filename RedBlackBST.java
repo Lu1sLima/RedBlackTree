@@ -170,7 +170,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * É um caminhamento préfixado, só que retorna a cor dos nodos.
      * Esse método foi utilizado para obter imagens da árvore.
      * @author Luís Lima, Adilson Medronha
-     * Notação O(c) constante
+     * Notação O(1) constante
      */
 
     private List<String> positionsPreNode() {
@@ -191,7 +191,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com todos os elementos da arvore na ordem de 
      * caminhamento pos-fixada. Deve chamar um metodo auxiliar recursivo.
      * @return List<Key> lista com as chaves da arvore
-     * Notação O(c) constante
+     * Notação O(1) constante
      */
     public List<Key> positionsPos() {
         List<Key> lista = new ArrayList<>();
@@ -215,7 +215,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com todos os elementos da arvore em Ordem(crescente). Os elementos
      * sao colocados na lista seguindo um caminhamento central.
      * @return lista com as chaves da arvore na ordem central(ordenada)
-     * Notação O(c) constante
+     * Notação O(log(n)) constante
      */
     public List<Key> positionsCentral() {
         List<Key> res = new ArrayList<>();
@@ -236,7 +236,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com os NODOS da arvore em Ordem(crescente). Os elementos
      * sao colocados na lista seguindo um caminhamento central.
      * @return lista com os elementos da arvore na ordem central(ordenada)
-     * Notação O(c) constante
+     * Notação O(1) constante
      */
 
     private List<Node> positionsCentralClone() {
@@ -256,7 +256,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com todos os elementos da arvore na ordem de 
      * caminhamento em largura. 
      * @return List<Key> com as chaves da arvore
-     * Notação O(n) VER ESSE
+     * Notação O(n)
      */  
 
     public List<Key> positionsWidth() {
@@ -280,7 +280,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     /**
      * Retorna o tamanho da árvore apartir de root.
      * @return tamanho da árvore.
-     * Notação O(c) constante
+     * Notação O(1) constante
      */
     public int size() {
         return size(root);
@@ -294,21 +294,17 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     /**
      * Verifica  se a árvore está vazia
      * @return {@code true} se a árvore está vazia e {@code false} se tiver algum elemento.
-     * Notação O(c) constante
+     * Notação O(1) constante
      */
     public boolean isEmpty() {
         return root == null;
     }
-    
-    /***************************************************************************
-     *  Red-black tree insertion.
-     ***************************************************************************/
  
      /**
       * Insere na árvore um nodo de chave-valor.
       * Reescreve o valor se o campo ja estiver preenchido.
       * Deleta uma key se o valor for null
-      * Notação O(c) constante
+      * Notação O(log(n))
       * @param key a chave
       * @param val o valor
       * @throws IllegalArgumentException se {@code key} é {@code null}
@@ -349,6 +345,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * @return {@code true} se a árvore possui a chave {@code key} e
      *     {@code false} se não.
      * @throws IllegalArgumentException se {@code key} é {@code null}
+     * Notação O(log(n))
      */
     public boolean contains(Key key) {
         return get(key) != null;
@@ -357,7 +354,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      /**
       * Retorna a altura da árvore.
       * @return altura da árvore apartir de root
-      * Notação O(c) constante
+      * Notação O(1) constante
       */
      public int height() {
          return height(root);
@@ -379,7 +376,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      ***************************************************************************/
 
     /** Verifica se o nodo é vermelho
-     * Notação O(c) constante
+     * Notação O(1) constante
      */
     private boolean isRed(Node x) {
         if (x == null) return false;
@@ -392,7 +389,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
 
     /**
      * Retorna o valor associado com a key passada por parâmetro.
-     * Notação O(log n)
+     * Notação O(log(n))
      * @param key a chave
      * @return o valor associado àquela key.
      *     and {@code null} se a chave não está na árvore.
@@ -414,13 +411,17 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     }
     
     
-    
+/****************************************** FIM DOS MÉTODOS SOLICITADOS ********************************************/
+
+
+
    /***************************************************************************
     *  Remove da RedBlackTree
     ***************************************************************************/
 
     /**
      * Remove a chave (e o valor) de menor expressão da árvore.
+     * Notação O(lon(n))
      * @throws NoSuchElementException se a redblack está vazia.
      */
     public void deleteMin() {
@@ -447,6 +448,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
 
     /**
      * Remove a chave de valor mais expressivo na árvore.
+     * Notação O(lon(n))
      * @throws NoSuchElementException if the symbol table is empty
      */
     public void deleteMax() {
@@ -458,7 +460,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
 
         root = deleteMax(root);
         if (!isEmpty()) root.color = BLACK;
-        // assert check();
     }
 
     // delete the key-value pair with the maximum key rooted at h
@@ -482,7 +483,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * se a chave não for null e estiver na árvore.    
      *
      * @param  key the key
-     * Notação O(log n)
+     * Notação O(log (n))
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) { 
@@ -497,7 +498,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         if (!isEmpty()) root.color = BLACK;
     }
 
-    // delete the key-value pair with the given key rooted at h
+    /**
+     * delete the key-value pair with the given key rooted at h
+     */
     private Node delete(Node h, Key key) { 
         // assert get(h, key) != null;
 
@@ -530,7 +533,12 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     *  Red-black tree helper functions.
     ***************************************************************************/
 
-    // make a left-leaning link lean to the right
+    /**
+     * make a left-leaning link lean to the right
+     * @param h
+     * @return Node h
+     * Notação O(1)
+     */
     private Node rotateRight(Node h) {
         // assert (h != null) && isRed(h.left);
         Node x = h.left;
@@ -543,7 +551,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         return x;
     }
 
-    // make a right-leaning link lean to the left
+    /** Notação O(1)
+     *  make a right-leaning link lean to the left
+     * @return Node x
+     */
     private Node rotateLeft(Node h) {
         // assert (h != null) && isRed(h.right);
         Node x = h.right;
@@ -556,7 +567,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         return x;
     }
 
-    // flip the colors of a node and its two children
+    /**
+     * flip the colors of a node and its two children
+     * Notação O(1)
+     */
     private void flipColors(Node h) {
         // h must have opposite color of its two children
         // assert (h != null) && (h.left != null) && (h.right != null);
@@ -567,8 +581,12 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         h.right.color = !h.right.color;
     }
 
-    // Assuming that h is red and both h.left and h.left.left
-    // are black, make h.left or one of its children red.
+    /**
+     * Assuming that h is red and both h.left and h.left.left are black, make h.left or one of its children red.
+     * @param h
+     * @return h
+     * Notacao O(1)
+     */
     private Node moveRedLeft(Node h) {
         // assert (h != null);
         // assert isRed(h) && !isRed(h.left) && !isRed(h.left.left);
@@ -582,8 +600,12 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         return h;
     }
 
-    // Assuming that h is red and both h.right and h.right.left
-    // are black, make h.right or one of its children red.
+/**
+ * Assuming that h is red and both h.right and h.right.left are black, make h.right or one of its children red.
+ * @param Node h
+ * @return h
+ * Notacao O(1)
+ */
     private Node moveRedRight(Node h) {
         // assert (h != null);
         // assert isRed(h) && !isRed(h.right) && !isRed(h.right.left);
@@ -595,7 +617,12 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         return h;
     }
 
-    // restore red-black tree invariant
+    /**
+     *  Método auxiliar de balanceamento da árvore, testa a cor dos nodos e de seus filhos, e conforme a cor, opera rotações ou troca de cores.
+     * @param h
+     * @return Node
+     * Notação O(1)
+     */
     private Node balance(Node h) {
         // assert (h != null);
 
@@ -614,6 +641,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     ***************************************************************************/
 
     /**
+     * Notacao O(1)
      * Returns the smallest key in the symbol table.
      * @return the smallest key in the symbol table
      * @throws NoSuchElementException if the symbol table is empty
@@ -631,6 +659,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     } 
 
     /**
+     * Notacao O(1)
      * Returns the largest key in the symbol table.
      * @return the largest key in the symbol table
      * @throws NoSuchElementException if the symbol table is empty
@@ -647,60 +676,8 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         else                 return max(x.right); 
     } 
 
-
     /**
-     * Returns the largest key in the symbol table less than or equal to {@code key}.
-     * @param key the key
-     * @return the largest key in the symbol table less than or equal to {@code key}
-     * @throws NoSuchElementException if there is no such key
-     * @throws IllegalArgumentException if {@code key} is {@code null}
-     */
-    public Key floor(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to floor() is null");
-        if (isEmpty()) throw new NoSuchElementException("calls floor() with empty symbol table");
-        Node x = floor(root, key);
-        if (x == null) return null;
-        else           return x.key;
-    }    
-
-    // the largest key in the subtree rooted at x less than or equal to the given key
-    private Node floor(Node x, Key key) {
-        if (x == null) return null;
-        int cmp = key.compareTo(x.key);
-        if (cmp == 0) return x;
-        if (cmp < 0)  return floor(x.left, key);
-        Node t = floor(x.right, key);
-        if (t != null) return t; 
-        else           return x;
-    }
-
-    /**
-     * Returns the smallest key in the symbol table greater than or equal to {@code key}.
-     * @param key the key
-     * @return the smallest key in the symbol table greater than or equal to {@code key}
-     * @throws NoSuchElementException if there is no such key
-     * @throws IllegalArgumentException if {@code key} is {@code null}
-     */
-    public Key ceiling(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
-        if (isEmpty()) throw new NoSuchElementException("calls ceiling() with empty symbol table");
-        Node x = ceiling(root, key);
-        if (x == null) return null;
-        else           return x.key;  
-    }
-
-    // the smallest key in the subtree rooted at x greater than or equal to the given key
-    private Node ceiling(Node x, Key key) {  
-        if (x == null) return null;
-        int cmp = key.compareTo(x.key);
-        if (cmp == 0) return x;
-        if (cmp > 0)  return ceiling(x.right, key);
-        Node t = ceiling(x.left, key);
-        if (t != null) return t; 
-        else           return x;
-    }
-
-    /**
+     * Notação O(lon(n))
      * Return the key in the symbol table whose rank is {@code k}.
      * This is the (k+1)st smallest key in the symbol table. 
      *
@@ -727,7 +704,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         else            return x; 
     } 
 
-    /**
+    /** Notação O(lon(n))
      * Return the number of keys in the symbol table strictly less than {@code key}.
      * @param key the key
      * @return the number of keys in the symbol table strictly less than {@code key}
@@ -755,6 +732,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Returns all keys in the symbol table as an {@code Iterable}.
      * To iterate over all of the keys in the symbol table named {@code st},
      * use the foreach notation: {@code for (Key key : st.keys())}.
+     *  Notação O(log(n))
      * @return all keys in the symbol table as an {@code Iterable}
      */
     public Iterable<Key> keys() {
@@ -796,7 +774,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
 
     /**
      * Returns the number of keys in the symbol table in the given range.
-     *
+     * Notação O(log(n))
      * @param  lo minimum endpoint
      * @param  hi maximum endpoint
      * @return the number of keys in the symbol table between {@code lo} 
@@ -817,24 +795,21 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
    /***************************************************************************
     *  Check integrity of red-black tree data structure.
     ***************************************************************************/
-    private boolean check() {
-        if (!isBST()){}            
-        if (!isSizeConsistent()) {}
-        if (!isRankConsistent()) {}
-        if (!is23())             {}
-        if (!isBalanced())       {}
-        return isBST() && isSizeConsistent() && isRankConsistent() && is23() && isBalanced();
-    }
 
-    // does this binary tree satisfy symmetric order?
-    // Note: this test also ensures that data structure is a binary tree since order is strict
+    /** Notação O(log(n)) 
+     * does this binary tree satisfy symmetric order?
+     * Note: this test also ensures that data structure is a binary tree since order is strict
+     * @return boolean
+    **/
     private boolean isBST() {
         return isBST(root, null, null);
     }
 
-    // is the tree rooted at x a BST with all keys strictly between min and max
-    // (if min or max is null, treat as empty constraint)
-    // Credit: Bob Dondero's elegant solution
+    /**
+    * is the tree rooted at x a BST with all keys strictly between min and max
+    * (if min or max is null, treat as empty constraint)
+    * Credit: Bob Dondero's elegant solution
+    **/
     private boolean isBST(Node x, Key min, Key max) {
         if (x == null) return true;
         if (min != null && x.key.compareTo(min) <= 0) return false;
@@ -842,15 +817,11 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         return isBST(x.left, min, x.key) && isBST(x.right, x.key, max);
     } 
 
-    // are the size fields correct?
-    private boolean isSizeConsistent() { return isSizeConsistent(root); }
-    private boolean isSizeConsistent(Node x) {
-        if (x == null) return true;
-        if (x.size != size(x.left) + size(x.right) + 1) return false;
-        return isSizeConsistent(x.left) && isSizeConsistent(x.right);
-    } 
-
-    // check that ranks are consistent
+    /**
+     * Notação O(n)
+     * Checking if the rank is consistent
+     * @return boolean
+     */
     private boolean isRankConsistent() {
         for (int i = 0; i < size(); i++)
             if (i != rank(select(i))) return false;
@@ -859,8 +830,11 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
         return true;
     }
 
-    // Does the tree have no red right links, and at most one (left)
-    // red links in a row on any path?
+    /**
+     * Testing if the three have red right links, and at most one (left) red links in a row on any path
+     * Notação O(1) constante
+     * @return boolean
+     */
     private boolean is23() { return is23(root); }
     private boolean is23(Node x) {
         if (x == null) return true;
@@ -869,8 +843,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
             return false;
         return is23(x.left) && is23(x.right);
     } 
-
-    // do all paths from root to leaf have same number of black edges?
+    /**
+     * Check if all paths from root to leaf have same number of black edges.
+     * Notação O(log(n))
+     */
     private boolean isBalanced() { 
         int black = 0;     // number of black links on path from root to min
         Node x = root;

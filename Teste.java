@@ -33,7 +33,7 @@ public class Teste {
         // a.put('y', "yuri");
         // a.put('z', "zebra");
 
-        System.out.println(a.positionsPreNode());
+        // System.out.println(a.positionsPreNode());
 
 
         // System.out.println("---------- [CAMINHAMENTOS] ----------");
