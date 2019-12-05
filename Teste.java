@@ -3,12 +3,15 @@
  */
 public class Teste {
 
+    /**
+     * Classe de teste dos métodos implementados
+     */
     public static void main(String[] args) {
         RedBlackBST<Character, String> a = new RedBlackBST<>();
 
-        a.add('a', "arco");
-        a.add('b', "baleia");
-        a.add('c', "carvalho");
+        // a.add('a', "arco");
+        // a.add('b', "baleia");
+        // a.add('c', "carvalho");
         // a.add('d', "dado");
         // a.add('e', "elefante");
         // a.add('f', "furacao");
