@@ -85,9 +85,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     public RedBlackBST() {
     }
 
-    
-
-
 
     /**
      * 
@@ -98,6 +95,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
 
     /**
      * Retorna a o valor da chave do pai da chave que passar.
+     * Método adaptado da implementação do colega @Lucas Garcia
      * @param key the key
      * @return valor da chave do pai da key passada por parametro, se for root, retorna null
      * Notação: O(n)
@@ -150,7 +148,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com todos os elementos da arvore. Os elementos
      * sao colocados na lista seguindo um caminhamento prefixado.
      * @return lista com os elementos da arvore na ordem prefixada
-     * Notação O(c) constante
+     * Notação O(n)
      */
     public List<Key> positionsPre() {
         List<Key> res = new ArrayList<>();
@@ -170,7 +168,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * É um caminhamento préfixado, só que retorna a cor dos nodos.
      * Esse método foi utilizado para obter imagens da árvore.
      * @author Luís Lima, Adilson Medronha
-     * Notação O(1) constante
+     * Notação O(n)
      */
 
     private List<String> positionsPreNode() {
@@ -191,7 +189,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com todos os elementos da arvore na ordem de 
      * caminhamento pos-fixada. Deve chamar um metodo auxiliar recursivo.
      * @return List<Key> lista com as chaves da arvore
-     * Notação O(1) constante
+     * Notação O(n)
      */
     public List<Key> positionsPos() {
         List<Key> lista = new ArrayList<>();
@@ -215,7 +213,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com todos os elementos da arvore em Ordem(crescente). Os elementos
      * sao colocados na lista seguindo um caminhamento central.
      * @return lista com as chaves da arvore na ordem central(ordenada)
-     * Notação O(log(n)) constante
+     * Notação O(n)
      */
     public List<Key> positionsCentral() {
         List<Key> res = new ArrayList<>();
@@ -236,7 +234,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      * Retorna uma lista com os NODOS da arvore em Ordem(crescente). Os elementos
      * sao colocados na lista seguindo um caminhamento central.
      * @return lista com os elementos da arvore na ordem central(ordenada)
-     * Notação O(1) constante
+     * Notação O(n)
      */
 
     private List<Node> positionsCentralClone() {
@@ -354,7 +352,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
      /**
       * Retorna a altura da árvore.
       * @return altura da árvore apartir de root
-      * Notação O(1) constante
+      * Notação O(log(n)) constante
       */
      public int height() {
          return height(root);
