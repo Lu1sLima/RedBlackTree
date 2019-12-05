@@ -57,8 +57,8 @@ public class Pesquisa {
 
     /**
      * Método com a lógica para pesquisa na árvore.
-     * Pesquisa primeiro na ÁRVORE MACRO [chave = prefixo da letra], pega o VALUE, que é uma ÁRVORE MICRO
-     * e na ÁRVORE MICRO, pesquisa através da palavra passada por parâmetro, pegando o value(tradução).
+     * Pesquisa primeiro na ARVORE MACRO [chave = prefixo da letra], pega o VALUE, que é uma ARVORE MICRO
+     * e na ARVORE MICRO, pesquisa através da palavra passada por parâmetro, pegando o value(tradução).
      * @param palavra
      * @return traducao da palavra passada por parâmetro
      */
@@ -98,7 +98,7 @@ public class Pesquisa {
      */
     public static void AdicionaPalavra(String palavra, String traducao){
         Character prefix = palavra.charAt(0);
-        //vai na ÁRVORE MACRO, pega o value do prefixo (que é uma ÁRVORE MICRO), e adiciona a palavra e sua tradução na ÁRVORE MICRO.
+        //vai na ARVORE MACRO, pega o value do prefixo (que é uma ARVORE MICRO), e adiciona a palavra e sua tradução na ARVORE MICRO.
         arvoreMacro.get(prefix).add(palavra, traducao);
         salvar();
     }
