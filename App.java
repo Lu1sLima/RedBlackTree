@@ -51,15 +51,14 @@ import javafx.stage.Stage;
 import javafx.stage.Screen;
 import javafx.scene.control.TextField;
 /**
- * App
+ * @author Luís Lima
+ * @author Adilson Medronha
+ * App [JAVAFX] do Dicionário
  */
 public class App extends Application{
     private TextField searchField;
     private TextField traductionField;
     private Pesquisa p1;
-    // public static RedBlackBST<Character, RedBlackBST> arvoreMacro = new RedBlackBST<>();
-    // public static RedBlackBST<String, String> arvoreMicro;
-    // String alfabeto = "abcdefghijklmnopqrstuvwxyz";
 
     public App(){
 
@@ -87,6 +86,7 @@ public class App extends Application{
         tab.add(searchField, 1, 1);
 
         Pesquisa.carregar();
+        // Pesquisa.carregaPalavras();
 
         Button pesquisar = new Button("Pesquisar");
         pesquisar.setAlignment(Pos.CENTER);
@@ -236,9 +236,5 @@ public class App extends Application{
         
     public static void main(String[] args) {
         launch(args);
-        // System.out.println("[PRE]: "+Pesquisa.arvoreMacro.get('a').positionsPre());
-        // System.out.println("[CENTRAL]: "+Pesquisa.arvoreMacro.get('a').positionsCentral());
-        // System.out.println("[LARGURA]: "+Pesquisa.arvoreMacro.get('a').positionsWidth());
-        // System.out.println(Pesquisa.arvoreMacro.get('a').positionsPreNode());
     }
 }

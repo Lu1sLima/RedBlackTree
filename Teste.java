@@ -6,32 +6,32 @@ public class Teste {
     public static void main(String[] args) {
         RedBlackBST<Character, String> a = new RedBlackBST<>();
 
-        a.put('a', "arco");
-        a.put('b', "baleia");
-        a.put('c', "carvalho");
-        // a.put('d', "dado");
-        // a.put('e', "elefante");
-        // a.put('f', "furacao");
-        // a.put('g', "guiana");
-        // a.put('h', "hiato");
-        // a.put('i', "igor");
-        // a.put('j', "jarra");
-        // a.put('k', "kaleb");
-        // a.put('l', "luis");
-        // a.put('m', "marte");
-        // a.put('n', "navio");
-        // a.put('o', "oculos");
-        // a.put('p', "parede");
-        // a.put('q', "queijo");
-        // a.put('r', "raiz");
-        // a.put('s', "salve");
-        // a.put('t', "talvez");
-        // a.put('u', "uivar");
-        // a.put('v', "vazio");
-        // a.put('w', "wesley");
-        // a.put('x', "xarrua");
-        // a.put('y', "yuri");
-        // a.put('z', "zebra");
+        a.add('a', "arco");
+        a.add('b', "baleia");
+        a.add('c', "carvalho");
+        // a.add('d', "dado");
+        // a.add('e', "elefante");
+        // a.add('f', "furacao");
+        // a.add('g', "guiana");
+        // a.add('h', "hiato");
+        // a.add('i', "igor");
+        // a.add('j', "jarra");
+        // a.add('k', "kaleb");
+        // a.add('l', "luis");
+        // a.add('m', "marte");
+        // a.add('n', "navio");
+        // a.add('o', "oculos");
+        // a.add('p', "parede");
+        // a.add('q', "queijo");
+        // a.add('r', "raiz");
+        // a.add('s', "salve");
+        // a.add('t', "talvez");
+        // a.add('u', "uivar");
+        // a.add('v', "vazio");
+        // a.add('w', "wesley");
+        // a.add('x', "xarrua");
+        // a.add('y', "yuri");
+        // a.add('z', "zebra");
 
         // System.out.println(a.positionsPreNode());
 

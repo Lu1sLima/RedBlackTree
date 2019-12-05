@@ -17,7 +17,9 @@ import java.util.Scanner;
 import javafx.scene.control.TextField;
 
 /**
- * Pesquisa
+ * Classe Pesquisa(onde as operações com as árvores são feitas).
+ * @author Luís Lima
+ * @author Adilson Medronha
  */
 public class Pesquisa {
     public static RedBlackBST<Character, RedBlackBST> arvoreMacro = new RedBlackBST<>();
@@ -28,6 +30,10 @@ public class Pesquisa {
     public Pesquisa(){
     }
 
+    /**
+     * Esse método é utilizado apenas uma vez, que é antes de salvar todas as palavras no banco.
+     * Após o salvamento das palavras, é só carrega-las do arquivo [data.txt].
+    **/
     public static void carregaPalavras(){
         for(int i = 0; i < alfabeto.length(); i++){
             Path path1 = Paths.get("palavras"+Character.toUpperCase(alfabeto.charAt(i))+".txt");
@@ -37,17 +43,25 @@ public class Pesquisa {
                 while (linha !=null) {
                     linha = linha.toLowerCase();
                     String [] parts = linha.split(";");
-                    arvoreMicro.put(parts[0], parts[1]);
+                    arvoreMicro.add(parts[0], parts[1]);
                     
                     linha = br.readLine();
-                    arvoreMacro.put(alfabeto.charAt(i), arvoreMicro);
+                    arvoreMacro.add(alfabeto.charAt(i), arvoreMicro);
                 }
             } catch (IOException x) {
                 System.err.format("Erro de E/S: %s%n", x);
             }
         }
-        
     }
+
+
+    /**
+     * Método com a lógica para pesquisa na árvore.
+     * Pesquisa primeiro na ÁRVORE MACRO [chave = prefixo da letra], pega o VALUE, que é uma ÁRVORE MICRO
+     * e na ÁRVORE MICRO, pesquisa através da palavra passada por parâmetro, pegando o value(tradução).
+     * @param palavra
+     * @return traducao da palavra passada por parâmetro
+     */
 
     public static String pesquisa(String palavra){
         Character prefix = Character.toLowerCase(palavra.charAt(0));
@@ -55,6 +69,9 @@ public class Pesquisa {
         return ""+arvoreMacro.get(prefix).get(palavra);
     }
 
+    /**
+     * Método com a lógica para salvar o objeto (árvore).
+     */
     public static void salvar(){
         try(ObjectOutputStream pSalvos = new ObjectOutputStream(new FileOutputStream("data.txt"))){
             pSalvos.writeObject(arvoreMacro);
@@ -74,10 +91,15 @@ public class Pesquisa {
         }
     }
 
+    /**
+     * Método que adiciona uma palavra com sua respectiva tradução na árvore.
+     * @param palavra
+     * @param traducao
+     */
     public static void AdicionaPalavra(String palavra, String traducao){
         Character prefix = palavra.charAt(0);
-        arvoreMacro.get(prefix).put(palavra, traducao);
-        //System.out.println(arvoreMacro.get(prefix).positionsCentral());
+        //vai na ÁRVORE MACRO, pega o value do prefixo (que é uma ÁRVORE MICRO), e adiciona a palavra e sua tradução na ÁRVORE MICRO.
+        arvoreMacro.get(prefix).add(palavra, traducao);
         salvar();
     }
 

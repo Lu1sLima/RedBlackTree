@@ -139,7 +139,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
     private void clone(Node n, RedBlackBST<Key, Value> clone){
         List<Node> aux = positionsCentralClone();
         aux.forEach(a -> {
-            clone.put(a.key, a.val);
+            clone.add(a.key, a.val);
         });
     }
 
@@ -308,25 +308,25 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Serializ
       * @throws IllegalArgumentException se {@code key} é {@code null}
       */
 
-     public void put(Key key, Value val) {
+     public void add(Key key, Value val) {
          if(root != null){
          }
-         if (key == null) throw new IllegalArgumentException("first argument to put() is null");
+         if (key == null) throw new IllegalArgumentException("first argument to add() is null");
          if (val == null) {
              delete(key);
              return;
          }
  
-         root = put(root, key, val);
+         root = add(root, key, val);
          root.color = BLACK;
      }
  
-     private Node put(Node h, Key key, Value val) { 
+     private Node add(Node h, Key key, Value val) { 
          if (h == null) return new Node(key, val, RED, 1);
  
          int cmp = key.compareTo(h.key);
-         if      (cmp < 0) h.left  = put(h.left,  key, val); 
-         else if (cmp > 0) h.right = put(h.right, key, val); 
+         if      (cmp < 0) h.left  = add(h.left,  key, val); 
+         else if (cmp > 0) h.right = add(h.right, key, val); 
          else              h.val   = val;
  
          // mantendo a árvore com a característica de balanceamento à esquerda.
